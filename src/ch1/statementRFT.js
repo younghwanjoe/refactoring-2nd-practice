@@ -1,10 +1,15 @@
 export function statement(invoice, plays) {
   const statementData = {};
-  statementData.customer = invoice.customer; // 고객 데이터를 중간 데이터로 옮김
-  statementData.performances = invoice.performances; // 공연 데이터를 중간 데이터로 옮김
-  return renderPlainText(statementData, plays); //  필요없어진 invoice 인수 삭제
+  statementData.customer = invoice.customer;
+  statementData.performances = invoice.performances.map(enrichPerformance);
+  return renderPlainText(statementData, plays);
+
+  function enrichPerformance(aPerformance) {
+    const result = Object.assign({}, aPerformance); // 얕은 복사 수행
+    return result;
+  }
 }
-// 필요없어진 invoice 인수 삭제
+
 function renderPlainText(data, plays) {
   let result = `청구 내역 (고객명: ${data.customer})\n`;
 
