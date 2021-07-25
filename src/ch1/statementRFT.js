@@ -1,5 +1,4 @@
 export function statement(invoice, plays) {
-  let totalAmount = 0;
   let result = `청구 내역 (고객명: ${invoice.customer})\n`;
 
   for (let perf of invoice.performances) {
@@ -7,7 +6,15 @@ export function statement(invoice, plays) {
     result += `  ${playFor(perf).name}: ${usd(
       amountFor(perf, playFor(perf))
     )} (${perf.audience}석)\n`;
-    totalAmount += amountFor(perf, playFor(perf));
+  }
+  let totalAmount = appleSauce();
+  //아무 이름(appleSauce)을 붙인 다음 totalAmount 변수를 인라인하는 단계를 밟는다.
+  function appleSauce() {
+    let totalAmount = 0;
+    for (let perf of invoice.performances) {
+      totalAmount += amountFor(perf);
+    }
+    return totalAmount;
   }
 
   function totalVolumeCredits() {
