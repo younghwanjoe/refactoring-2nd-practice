@@ -9,7 +9,7 @@ export function statement(invoice, plays) {
   }).format;
 
   for (let perf of invoice.performances) {
-    const play = plays[perf.playID];
+    const play = playFor(perf);
     let thisAmount = amountFor(perf, play);
     // 포인트를 적립한다.
     volumeCredits += Math.max(perf.audience - 30, 0);
@@ -22,6 +22,11 @@ export function statement(invoice, plays) {
     }석)\n`;
     totalAmount += thisAmount;
   }
+
+  function playFor(aPerformance) {
+    return plays[aPerformance.playID];
+  }
+
   function amountFor(aPerformance, play) {
     let result = 0;
 
