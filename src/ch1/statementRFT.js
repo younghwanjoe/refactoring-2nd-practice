@@ -9,8 +9,6 @@ export function statement(invoice, plays) {
     )} (${perf.audience}석)\n`;
     totalAmount += amountFor(perf, playFor(perf));
   }
-  // 값 계산 로직을 함수로 추출
-  let volumeCredits = totalVolumeCredits();
 
   function totalVolumeCredits() {
     let volumeCredits = 0;
