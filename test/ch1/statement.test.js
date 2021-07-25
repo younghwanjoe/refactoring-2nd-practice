@@ -1,6 +1,6 @@
 import { expect } from "chai";
-import { statement } from "../../src/ch1/statementBase.js";
-// import { statement } from "../../src/ch1/statementRFT.js";
+// import { statement } from "../../src/ch1/statementBase.js";
+import { statement } from "../../src/ch1/statementRFT.js";
 
 describe("statement", () => {
   const playsJson = {
