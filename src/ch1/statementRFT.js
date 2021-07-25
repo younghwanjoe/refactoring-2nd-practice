@@ -7,9 +7,8 @@ export function statement(invoice, plays) {
       amountFor(perf, playFor(perf))
     )} (${perf.audience}석)\n`;
   }
-  let totalAmount = appleSauce();
-  //아무 이름(appleSauce)을 붙인 다음 totalAmount 변수를 인라인하는 단계를 밟는다.
-  function appleSauce() {
+
+  function totalAmount() {
     let totalAmount = 0;
     for (let perf of invoice.performances) {
       totalAmount += amountFor(perf);
@@ -67,7 +66,7 @@ export function statement(invoice, plays) {
     }
     return result; // 함수 안에서 값이 바뀌는 변수 반환
   }
-  result += `총액: ${usd(totalAmount)}\n`;
+  result += `총액: ${usd(totalAmount())}\n`;
   result += `적립 포인트: ${totalVolumeCredits()}점\n`;
   return result;
 }
