@@ -4,15 +4,15 @@ export function statement(invoice, plays) {
   let result = `청구 내역 (고객명: ${invoice.customer})\n`;
 
   for (let perf of invoice.performances) {
-    let thisAmount = amountFor(perf, playFor(perf));
-    // 포인트를 적립한다.
-    // 추출한 함수를 이용해 값을 누적
-    volumeCredits += volumeCreditsFor(perf);
     // 청구 내역을 출력한다.
-    result += `  ${playFor(perf).name}: ${usd(thisAmount)} (${
-      perf.audience
-    }석)\n`;
-    totalAmount += thisAmount;
+    result += `  ${playFor(perf).name}: ${usd(
+      amountFor(perf, playFor(perf))
+    )} (${perf.audience}석)\n`;
+    totalAmount += amountFor(perf, playFor(perf));
+  }
+  // 값 누적 로직을 별도 for문으로 분리
+  for (let perf of invoice.performances) {
+    volumeCredits += volumeCreditsFor(perf);
   }
 
   function usd(aNumber) {
