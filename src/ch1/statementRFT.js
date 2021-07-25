@@ -9,10 +9,15 @@ export function statement(invoice, plays) {
     )} (${perf.audience}석)\n`;
     totalAmount += amountFor(perf, playFor(perf));
   }
-  // 변수 선언(초기화)을 반복문 앞으로 이동
-  let volumeCredits = 0;
-  for (let perf of invoice.performances) {
-    volumeCredits += volumeCreditsFor(perf);
+  // 값 계산 로직을 함수로 추출
+  let volumeCredits = totalVolumeCredits();
+
+  function totalVolumeCredits() {
+    let volumeCredits = 0;
+    for (let perf of invoice.performances) {
+      volumeCredits += volumeCreditsFor(perf);
+    }
+    return volumeCredits;
   }
 
   function usd(aNumber) {
