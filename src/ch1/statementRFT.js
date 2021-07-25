@@ -9,18 +9,18 @@ export function statement(invoice, plays) {
     // 추출한 함수를 이용해 값을 누적
     volumeCredits += volumeCreditsFor(perf);
     // 청구 내역을 출력한다.
-    result += `  ${playFor(perf).name}: ${format(thisAmount / 100)} (${
+    result += `  ${playFor(perf).name}: ${usd(thisAmount)} (${
       perf.audience
     }석)\n`;
     totalAmount += thisAmount;
   }
 
-  function format(aNumber) {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-      minimumFractionDigits: 2,
-    }).format(aNumber);
+  function usd(aNumber) {
+    return new Intl.NumberFormat(
+      "en-US",
+      // 마지막에 100으로 나누는 로직도 usd함수 안에 이동한다.
+      { style: "currency", currency: "USD", minimumFractionDigits: 2 }
+    ).format(aNumber / 100);
   }
 
   function volumeCreditsFor(perf) {
@@ -57,7 +57,7 @@ export function statement(invoice, plays) {
     }
     return result; // 함수 안에서 값이 바뀌는 변수 반환
   }
-  result += `총액: ${format(totalAmount / 100)}\n`;
+  result += `총액: ${usd(totalAmount)}\n`;
   result += `적립 포인트: ${volumeCredits}점\n`;
   return result;
 }
