@@ -1,12 +1,14 @@
 export function statement(invoice, plays) {
   const statementData = {};
-  return renderPlainText(statementData, invoice, plays); // 중간 데이터 구조를 인수로 전달
+  statementData.customer = invoice.customer; // 고객 데이터를 중간 데이터로 옮김
+  statementData.performances = invoice.performances; // 공연 데이터를 중간 데이터로 옮김
+  return renderPlainText(statementData, plays); //  필요없어진 invoice 인수 삭제
 }
-// 중간 데이터 구조를 인수로 전달
-function renderPlainText(data, invoice, plays) {
-  let result = `청구 내역 (고객명: ${invoice.customer})\n`;
+// 필요없어진 invoice 인수 삭제
+function renderPlainText(data, plays) {
+  let result = `청구 내역 (고객명: ${data.customer})\n`;
 
-  for (let perf of invoice.performances) {
+  for (let perf of data.performances) {
     // 청구 내역을 출력한다.
     result += `  ${playFor(perf).name}: ${usd(
       amountFor(perf, playFor(perf))
@@ -15,7 +17,7 @@ function renderPlainText(data, invoice, plays) {
 
   function totalAmount() {
     let totalAmount = 0;
-    for (let perf of invoice.performances) {
+    for (let perf of data.performances) {
       totalAmount += amountFor(perf);
     }
     return totalAmount;
@@ -23,7 +25,7 @@ function renderPlainText(data, invoice, plays) {
 
   function totalVolumeCredits() {
     let volumeCredits = 0;
-    for (let perf of invoice.performances) {
+    for (let perf of data.performances) {
       volumeCredits += volumeCreditsFor(perf);
     }
     return volumeCredits;
