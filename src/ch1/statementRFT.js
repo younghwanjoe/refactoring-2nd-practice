@@ -9,8 +9,7 @@ export function statement(invoice, plays) {
   }).format;
 
   for (let perf of invoice.performances) {
-    const play = playFor(perf);
-    let thisAmount = amountFor(perf, play);
+    let thisAmount = amountFor(perf, playFor(perf));
     // 포인트를 적립한다.
     volumeCredits += Math.max(perf.audience - 30, 0);
     // 희극 관객 5명마다 추가 포인트를 제공한다.
