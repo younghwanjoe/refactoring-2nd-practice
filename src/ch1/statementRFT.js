@@ -27,10 +27,10 @@ export function statement(invoice, plays) {
     return plays[aPerformance.playID];
   }
 
-  function amountFor(aPerformance, play) {
+  function amountFor(aPerformance) {
     let result = 0;
 
-    switch (play.type) {
+    switch (playFor(aPerformance).type) {
       case "tragedy": // 비극
         result = 40000;
         if (aPerformance.audience > 30) {
