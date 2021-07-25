@@ -23,26 +23,26 @@ export function statement(invoice, plays) {
     totalAmount += thisAmount;
   }
   function amountFor(perf, play) {
-    let thisAmount = 0;
+    let result = 0;
 
     switch (play.type) {
       case "tragedy": // 비극
-        thisAmount = 40000;
+        result = 40000;
         if (perf.audience > 30) {
-          thisAmount += 1000 * (perf.audience - 30);
+          result += 1000 * (perf.audience - 30);
         }
         break;
       case "comedy": // 희극
-        thisAmount = 30000;
+        result = 30000;
         if (perf.audience > 20) {
-          thisAmount += 10000 + 500 * (perf.audience - 20);
+          result += 10000 + 500 * (perf.audience - 20);
         }
-        thisAmount += 300 * perf.audience;
+        result += 300 * perf.audience;
         break;
       default:
         throw new Error(`알 수 없는 장르: ${perf.type}`);
     }
-    return thisAmount; // 함수 안에서 값이 바뀌는 변수 반환
+    return result; // 함수 안에서 값이 바뀌는 변수 반환
   }
   result += `총액: ${format(totalAmount / 100)}\n`;
   result += `적립 포인트: ${volumeCredits}점\n`;
